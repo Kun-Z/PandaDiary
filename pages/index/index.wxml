@@ -1,5 +1,14 @@
-<page>
-  <view class="container">
-  <image src="../../image/main.jpg" mode="aspectFit"></image>
-  </view>
-</page>
+<!--pages/index/index.wxml-->
+<image class='ImageBox' src='../../image/main.jpg' mode='aspectFit'></image>
+<text class='TextBox'>123</text>
+<view class='BottomBar'>
+  <button class='Button' plain='true'>
+    <text>保存图片</text>
+  </button>
+  <button class='Button' plain='true'>
+    <text>分享</text>
+  </button>
+  <button class='Button' plain='true'>
+    <text>去水印</text>
+  </button>
+</view>

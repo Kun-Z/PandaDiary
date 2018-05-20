@@ -1,21 +1,29 @@
-/**index.wxss**/
-.userinfo {
+/* pages/index/index.wxss */
+.ImageBox{
+  height: 20%;
+  width: 100%;
+  position: fixed;
+}
+.TextBox{
+  height: 50%;
+  width: 100%;
+  position: fixed;
+  top:30%;
+}
+.BottomBar{
+  height: 10%;
+  width: 100%;
+  background-color: cornflowerblue;
+  border-top-style: 1px solid black;
+  position: fixed;
+  bottom: 0;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: space-around;
+  /* align-items: flex-start; */
 }
-
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-}
-
-.userinfo-nickname {
-  color: #aaa;
-}
-
-.usermotto {
-  margin-top: 200px;
+.Button{
+  flex-grow: 1;
+  height: 100%;
+  width: 10%;
+  /* border: 0.1px solid black; */
 }
