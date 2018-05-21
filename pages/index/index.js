@@ -3,34 +3,22 @@ const date = new Date()
 const years = []
 const months = []
 const days = []
-for (let i = 1990; i <= date.getFullYear(); i++) {
-  years.push(i)
-}
-
-for (let i = 1; i <= 12; i++) {
-  months.push(i)
-}
-
-for (let i = 1; i <= 31; i++) {
-  days.push(i)
-}
 Page({
   /*页面的初始数据*/
   data: {
-    years: years,
     year: date.getFullYear(),
-    months: months,
-    month: 2,
-    days: days,
-    day: 2,
-    value: [9999, 1, 1],
+    month: date.getMonth()+1,
+    day: date.getDay(),
   },
   bindChange: function (e) {
-    const val = e.detail.value
+    console.log(e.detail.value)
+    var str = e.detail.value
+    var val = str.split('-')
+    console.log(val)
     this.setData({
-      year: this.data.years[val[0]],
-      month: this.data.months[val[1]],
-      day: this.data.days[val[2]]
+      year: val[0],
+      month: val[1],
+      day: val[2],
     })
   },
   /**

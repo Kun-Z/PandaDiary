@@ -4,11 +4,11 @@
   width: 100%;
   position: fixed;
 }
-.data{
-  height: 150rpx;
+.DateSection{
+  height: 10%;
   width: 100%;
   position: fixed;
-  top:200rpx;
+  top:20%;
 }
 .TextBox{
   height: 600rpx;
@@ -25,7 +25,6 @@
   bottom: 0;
   display: flex;
   justify-content: space-around;
-  /* align-items: flex-start; */
 }
 .Button{
   flex-grow: 1;
@@ -35,8 +34,6 @@
   border-radius: 0;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  /* justify-content: space-around; */
 }
 .Button::after{
   border: none;
