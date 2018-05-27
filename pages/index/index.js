@@ -3,14 +3,15 @@ const date = new Date()
 Page({
   /*页面的初始数据*/
   data: {
-    isHidden:true,
+    isHidden: true,
     currentTxetLen: 0,
     weather: '灭霸晴',
-    weatherKey:['晴','烈日','灭霸晴','阴','雨'],
+    weatherKey: ['晴', '烈日', '灭霸晴', '阴', '雨'],
     max: 500,
     year: date.getFullYear(),
     month: date.getMonth() + 1,
     day: date.getDay(),
+    textArea: '',
   },
   /*选择日期*/
   bindChange: function (e) {
@@ -25,7 +26,7 @@ Page({
   /*点击天气框*/
   weatherInput: function (e) {
     this.setData({
-      isHidden:false
+      isHidden: false
     })
   },
   /*天气标签点击*/
@@ -46,6 +47,13 @@ Page({
     }
     this.setData({
       weather: '灭霸晴'
+    });
+  },
+  /*离开日记框*/
+  textOff: function (e) {
+    var text = e.detail.value;
+    this.setData({
+      textArea: text
     });
   },
   /*日记字数*/
@@ -81,7 +89,12 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    console.log(this.data);
+    wx.setStorageSync('year', this.data.year);
+    wx.setStorageSync('month', this.data.month);
+    wx.setStorageSync('day', this.data.day);
+    wx.setStorageSync('weather', this.data.day);
+    wx.setStorageSync('text', this.data.textArea);
   },
 
   /**

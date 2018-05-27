@@ -1,1 +1,35 @@
 /**app.wxss**/
+.BottomBar{
+  height: 100rpx;
+  width: 100%;
+  background-color: cornflowerblue;
+  border-top-style: 1px solid black;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+}
+.Button{
+  flex-grow: 1;
+  height: 100%;
+  width: 20%;
+  background: none;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+}
+.Button::after{
+  border: none;
+}
+.icon{
+  height: 50rpx;
+  width: 100%;
+  margin-top: 10rpx;
+}
+.title{
+  height: 30rpx;
+  width: 100%;
+  font-size: 20rpx;
+  text-align: center;
+  margin-bottom: 5rpx;
+}
