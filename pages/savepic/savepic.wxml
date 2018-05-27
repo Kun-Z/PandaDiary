@@ -1,2 +1,30 @@
 <!--pages/savepic/savepic.wxml-->
-<text>pages/savepic/savepic.wxml</text>
+<!--pages/index/index.wxml-->
+
+<image class='ImageBox' src='../../image/main.jpg' mode='aspectFit'>
+</image>
+<view class='TitleBox'>
+  <picker mode='date' bindchange="bindChange">
+    <text>{{year}}年{{month}}月{{day}}日</text>
+  </picker>
+  <text>灭霸晴</text>
+</view>
+<view class='TextBox'>
+  <textarea class='TextArea' placeholder='输入日记内容...' maxlength='{{max}}' adjust-position='true'>
+  </textarea>
+  <!-- <text class='TextLen'>{{currentTxetLen|0}}/{{max}}</text> -->
+</view>
+<view class='BottomBar'>
+  <button class='Button'>
+    <image class='icon' src='../../image/savepic.png' mode='aspectFit'></image>
+    <text class='title'>预览</text>
+  </button>
+  <button class='Button'>
+    <image class='icon' src='../../image/savepic.png' mode='aspectFit'></image>
+    <text class='title'>保存</text>
+  </button>
+  <button class='Button'>
+    <image class='icon' src='../../image/share.png' mode='aspectFit'></image>
+    <text class='title'>分享</text>
+  </button>
+</view>

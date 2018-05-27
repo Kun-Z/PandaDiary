@@ -1,21 +1,26 @@
 <!--pages/index/index.wxml-->
-
-<image class='ImageBox' src='../../image/main.jpg' mode='aspectFit'></image>
-<picker class='DateSection' mode='date' bindchange="bindChange">
-  <text>{{year}}年{{month}}月{{day}}日</text>
-</picker>
-<text class='TextBox'>123</text>
+<image class='ImageBox' src='../../image/main.jpg' mode='aspectFit'>
+</image>
+<view class='WeatherSec' hidden='{{isHidden}}'>
+  <block wx:for='{{weatherKey}}'>
+    <view class="WeatherItem" bindtap='weatherKeyTap' data-key='{{item}}'>{{item}}</view>
+  </block>
+</view>
+<view class='TitleBox'>
+  <picker class='Data' mode='date' bindchange="bindChange">
+    <text>{{year}}年{{month}}月{{day}}日</text>
+  </picker>
+  <input class='Weather' type='text' value='{{weather}}' maxlength='8' bindblur='weatherOff' bindfocus='weatherInput'>
+  </input>
+</view>
+<view class='TextBox'>
+  <textarea class='TextArea' placeholder='输入日记内容...' maxlength='{{max}}' adjust-position='true'>
+  </textarea>
+  <!-- <text class='TextLen'>{{currentTxetLen|0}}/{{max}}</text> -->
+</view>
 <view class='BottomBar'>
   <button class='Button'>
     <image class='icon' src='../../image/savepic.png' mode='aspectFit'></image>
     <text class='title'>预览</text>
-  </button>
-  <button class='Button'>
-    <image class='icon' src='../../image/savepic.png' mode='aspectFit'></image>
-    <text class='title'>保存</text>
-  </button>
-  <button class='Button'>
-    <image class='icon' src='../../image/share.png' mode='aspectFit'></image>
-    <text class='title'>分享</text>
   </button>
 </view>
