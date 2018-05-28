@@ -10,7 +10,7 @@ Page({
     max: 500,
     year: date.getFullYear(),
     month: date.getMonth() + 1,
-    day: date.getDay(),
+    day: date.getDate(),
     textArea: '',
   },
   /*选择日期*/
@@ -93,7 +93,7 @@ Page({
     wx.setStorageSync('year', this.data.year);
     wx.setStorageSync('month', this.data.month);
     wx.setStorageSync('day', this.data.day);
-    wx.setStorageSync('weather', this.data.day);
+    wx.setStorageSync('weather', this.data.weather);
     wx.setStorageSync('text', this.data.textArea);
   },
 

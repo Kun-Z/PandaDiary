@@ -1,6 +1,10 @@
 <view class='PicBox'>
   <image class='Pic' src='../../image/main.jpg' mode='aspectFit'></image>
-  <text class='Text'>{{year}}</text>
+  <view class='Text'>
+    <block wx:for='{{textSplit}}'>
+      <view class='TextItem' data-key='{{index}}'>{{item}}</view>
+    </block>
+  </view>
 </view>
 <view class='BottomBar'>
   <button class='Button'>

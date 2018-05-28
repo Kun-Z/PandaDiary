@@ -1,22 +1,36 @@
 /* pages/savepic/savepic.wxss */
-.PicBox{
-  width: 90%;
+
+.PicBox {
   height: 700rpx;
   position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
-  margin: 0 auto; 
-  display:flex;
+  left: 150rpx;
+  right: 150rpx;
+  margin: 0 auto;
+  display: flex;
   align-items: center;
 }
-.Pic{
-  width: 100%;
+
+.Pic {
+  width: 450rpx;
   height: 200rpx;
+  /* border: 1rpx solid; */
   position: absolute;
   top: 10rpx;
 }
-.Text{
-  position: absolute;
-  top:210rpx;
+
+.Text {
+  width: 450rpx;
+  height: 600rpx;
+  /* border: 1rpx solid; */
+  position: fixed;
+  top: 210rpx;
+  display: flex;
+  flex-wrap: wrap;
+   align-items: flex-end;
+  /* justify-content: flex-start;  */
+}
+
+.TextItem {
+  font-size: 40rpx;
 }

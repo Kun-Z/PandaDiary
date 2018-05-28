@@ -7,7 +7,10 @@ Page({
   data: {
 
   },
-
+  /*点击文本获得文字*/
+  textTap: function (e) {
+    console.log(e.currentTarget)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -32,7 +35,13 @@ Page({
       day: wx.getStorageSync('day'),
       weather: wx.getStorageSync('weather'),
       text: wx.getStorageSync('text'),
+    });
+    var inputTxet = this.data.year + '年' + this.data.month + '月' + this.data.day + '日，' + this.data.weather + '，' + this.data.text;
+    console.log(inputTxet);
+    this.setData({
+      textSplit: inputTxet.split("")
     })
+    console.log(this.data.textSplit);
   },
 
   /**
