@@ -36,8 +36,7 @@ Page({
       weather: wx.getStorageSync('weather'),
       text: wx.getStorageSync('text'),
     });
-    var inputTxet = this.data.year + '年' + this.data.month + '月' + this.data.day + '日，' + this.data.weather + '，' + this.data.text;
-    console.log(inputTxet);
+    var inputTxet = this.data.year + '年' + this.data.month + '月' + this.data.day + '日,' + this.data.weather + ',' + this.data.text;
     this.setData({
       textSplit: inputTxet.split("")
     })

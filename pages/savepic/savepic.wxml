@@ -1,16 +1,19 @@
 <view class='PicBox'>
-  <image class='Pic' src='../../image/main.jpg' mode='aspectFit'></image>
+  <image class='Pic' src='../../image/1.png' mode='aspectFill'></image>
   <view class='Text'>
     <block wx:for='{{textSplit}}'>
       <view class='TextItem' data-key='{{index}}'>{{item}}</view>
     </block>
   </view>
 </view>
+<view class='LeftBar'>
+  <button class='BarItem'>年</button>
+  <button class='BarItem'>/</button>
+  <button class='BarItem'>，</button>
+  <button class='BarItem'>↲</button>
+</view>
+<view class='RightBar'></view>
 <view class='BottomBar'>
-  <button class='Button'>
-    <image class='icon' src='../../image/savepic.png' mode='aspectFit'></image>
-    <text class='title'>预览</text>
-  </button>
   <button class='Button'>
     <image class='icon' src='../../image/savepic.png' mode='aspectFit'></image>
     <text class='title'>保存</text>

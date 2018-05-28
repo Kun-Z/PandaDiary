@@ -1,15 +1,17 @@
 /**app.wxss**/
-.BottomBar{
+
+.BottomBar {
   height: 100rpx;
   width: 100%;
-  background-color: cornflowerblue;
-  border-top-style: 1px solid black;
+  background-color: #3481EB;
+  border-top-style: 2rpx solid black;
   position: fixed;
   bottom: 0;
   display: flex;
   justify-content: space-around;
 }
-.Button{
+
+.Button {
   flex-grow: 1;
   height: 100%;
   width: 20%;
@@ -18,15 +20,18 @@
   display: flex;
   flex-direction: column;
 }
-.Button::after{
+
+.Button::after {
   border: none;
 }
-.icon{
+
+.icon {
   height: 50rpx;
   width: 100%;
   margin-top: 10rpx;
 }
-.title{
+
+.title {
   height: 30rpx;
   width: 100%;
   font-size: 20rpx;

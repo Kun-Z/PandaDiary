@@ -2,35 +2,66 @@
 
 .PicBox {
   height: 700rpx;
-  position: fixed;
+  width: 500rpx;
+  position: absolute;
   top: 0;
-  left: 150rpx;
-  right: 150rpx;
-  margin: 0 auto;
+  left: 125rpx;
   display: flex;
   align-items: center;
 }
 
 .Pic {
-  width: 450rpx;
-  height: 200rpx;
+  width: 500rpx;
+  height: 400rpx;
   /* border: 1rpx solid; */
   position: absolute;
   top: 10rpx;
 }
 
 .Text {
-  width: 450rpx;
-  height: 600rpx;
-  /* border: 1rpx solid; */
+  width: 500rpx;
   position: fixed;
-  top: 210rpx;
+  top: 400rpx;
   display: flex;
   flex-wrap: wrap;
-   align-items: flex-end;
-  /* justify-content: flex-start;  */
+  align-items: flex-start;
 }
 
 .TextItem {
   font-size: 40rpx;
+}
+
+.LeftBar {
+  height: 1106rpx;
+  width: 100rpx;
+  /* background-color: CornflowerBlue; */
+  border-right: 6rpx solid #ddd;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  
+}
+.LeftBar text{
+  vertical-align:middle;
+}
+
+.RightBar {
+  height: 100%;
+  width: 100rpx;
+  border-left: 6rpx solid #ddd;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.BarItem {
+  width: 80rpx;
+  height: 80rpx;
+  padding: 0rpx;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
 }
