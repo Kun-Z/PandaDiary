@@ -2,7 +2,7 @@
   <image class='Pic' src='../../image/1.png' mode='aspectFill'></image>
   <view class="{{L4?'Text1':'Text'}}">
     <block wx:for='{{textSplit}}'>
-      <view class='TextItem' data-key='{{index}}'>{{item}}</view>
+      <view class='TextItem' style='font-size: {{fontsize}}rpx' data-key='{{index}}'>{{item}}</view>
     </block>
   </view>
   <view wx:if='{{L4}}' class='Text2'>
@@ -12,12 +12,10 @@
   </view>
 </view>
 <view class='LeftBar'>
-  <button class="{{L1?'BarItemClick':'BarItem'}}" bindtap='LTap' data-id='L1'> 年 </button>
-  <button class="{{L2?'BarItemClick':'BarItem'}}" bindtap='LTap' data-id='L2'>/</button>
-  <button class="{{L3?'BarItemClick':'BarItem'}}" bindtap='LTap' data-id='L3'>，</button>
-  <button class="{{L4?'BarItemClick':'BarItem'}}" bindtap='LTap' data-id='L4'>↲</button>
+  <block wx:for='{{LeftBar}}'>
+    <button class="{{Number(item.key)?'BarItemClick':'BarItem'}}" bindtap='{{item.tap}}' data-key='{{item.key}}'>{{item.text}}</button>
+  </block>
 </view>
-<view class='RightBar'></view>
 <view class='BottomBar'>
   <button class='Button'>
     <image class='icon' src='../../image/savepic.png' mode='aspectFit'></image>

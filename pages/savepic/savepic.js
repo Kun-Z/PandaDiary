@@ -2,21 +2,44 @@
 Page({
   /* 页面的初始数据*/
   data: {
+    fontsize: 60,
+    LeftBar: [
+      { key: 'L1', tap: 'L1Tap', text: '年', value:1},
+      { key: 'L2', tap: 'L1Tap', text: '/' },
+      { key: 'L3', tap: 'L1Tap', text: ',' },
+      { key: 'L4', tap: 'L1Tap', text: '↲' },
+      { key: 'L5', tap: 'L2Tap', text: '+' },
+      { key: 'L6', tap: 'L2Tap', text: '-' },
+      { key: 'L7', tap: 'L1Tap', text: "B" },
+    ],
   },
-  /*年*/
-  LTap: function (e) {
-    var tap = e.target.dataset.id
-    if (this.data[tap]) {
+  L1Tap: function (e) {
+    var tapkey = e.target.dataset.key
+    if (this.data[tapkey]) {
       this.setData({
-        [tap]: 0
+        [tapkey]: 0
       })
     }
     else {
       this.setData({
-        [tap]: 1
+        [tapkey]: 1
       })
     }
     this.setText()
+  },
+  L2Tap: function (e) {
+    var tap = e.target.dataset.key
+    if (tap == 'L5') {
+      var _fontsize = this.data.fontsize + 5
+
+    }
+    else {
+      var _fontsize = this.data.fontsize - 5
+    }
+    this.setData({
+      fontsize: _fontsize
+    })
+    console.log(this.data.fontsize)
   },
   /*生命周期函数--监听页面加载*/
   onLoad: function (options) {
@@ -41,8 +64,8 @@ Page({
       text2 = text1 + '  ' + this.data.weather + '  '
     }
     var inputTxet = text2 + this.data.text
-    if(this.data.L4){
-      inputTxet = text2.slice(0, text2.length-1)
+    if (this.data.L4) {
+      inputTxet = text2.slice(0, text2.length - 1)
       this.setData({
         textSplit2: this.data.text.split("")
       })

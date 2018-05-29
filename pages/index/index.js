@@ -89,7 +89,6 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    console.log(this.data);
     wx.setStorageSync('year', this.data.year);
     wx.setStorageSync('month', this.data.month);
     wx.setStorageSync('day', this.data.day);

@@ -39,7 +39,7 @@
   width: 100%;
   background-color: cornflowerblue;
   position: fixed;
-  top: 10rpx;
+  top: 0rpx;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
