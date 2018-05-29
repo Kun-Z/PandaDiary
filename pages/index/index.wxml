@@ -1,5 +1,5 @@
 <!--pages/index/index.wxml-->
-<image class='ImageBox' src='../../image/main.jpg' mode='aspectFit'>
+<image class='ImageBox' src='../../image/1.png' mode='aspectFit'>
 </image>
 <view class='WeatherSec' hidden='{{isHidden}}'>
   <block wx:for='{{weatherKey}}'>

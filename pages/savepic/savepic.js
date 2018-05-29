@@ -1,33 +1,58 @@
 // pages/savepic/savepic.js
 Page({
-
-  /**
-   * 页面的初始数据
-   */
+  /* 页面的初始数据*/
   data: {
-
   },
-  /*点击文本获得文字*/
-  textTap: function (e) {
-    console.log(e.currentTarget)
+  /*年*/
+  LTap: function (e) {
+    var tap = e.target.dataset.id
+    if (this.data[tap]) {
+      this.setData({
+        [tap]: 0
+      })
+    }
+    else {
+      this.setData({
+        [tap]: 1
+      })
+    }
+    this.setText()
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
+  /*生命周期函数--监听页面加载*/
   onLoad: function (options) {
 
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
+  /* 生命周期函数--监听页面初次渲染完成*/
   onReady: function () {
 
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
+  setText: function () {
+    var text1 = this.data.month + '月' + this.data.day + '日'
+    if (this.data.L1) {
+      text1 = this.data.year + '年' + this.data.month + '月' + this.data.day + '日'
+    }
+    if (this.data.L2) {
+      text1 = text1.replace('年', '/')
+      text1 = text1.replace('月', '/')
+      text1 = text1.replace('日', '')
+    }
+    var text2 = text1 + ',' + this.data.weather + ',';
+    if (this.data.L3) {
+      text2 = text1 + '  ' + this.data.weather + '  '
+    }
+    var inputTxet = text2 + this.data.text
+    if(this.data.L4){
+      inputTxet = text2.slice(0, text2.length-1)
+      this.setData({
+        textSplit2: this.data.text.split("")
+      })
+    }
+    this.setData({
+      textSplit: inputTxet.split("")
+    })
+    console.log(this.data.textSplit);
+  },
+  /* 生命周期函数--监听页面显示*/
   onShow: function () {
     this.setData({
       year: wx.getStorageSync('year'),
@@ -36,44 +61,25 @@ Page({
       weather: wx.getStorageSync('weather'),
       text: wx.getStorageSync('text'),
     });
-    var inputTxet = this.data.year + '年' + this.data.month + '月' + this.data.day + '日,' + this.data.weather + ',' + this.data.text;
-    this.setData({
-      textSplit: inputTxet.split("")
-    })
-    console.log(this.data.textSplit);
+    this.setText();
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
+  /* 生命周期函数--监听页面隐藏*/
   onHide: function () {
 
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
+  /* 生命周期函数--监听页面卸载*/
   onUnload: function () {
 
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
+  /* 页面相关事件处理函数--监听用户下拉动作*/
   onPullDownRefresh: function () {
 
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
+  /* 页面上拉触底事件的处理函数*/
   onReachBottom: function () {
 
   },
-
-  /**
-   * 用户点击右上角分享
-   */
+  /* 用户点击右上角分享*/
   onShareAppMessage: function () {
 
   }

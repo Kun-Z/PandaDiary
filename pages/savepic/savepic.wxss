@@ -27,8 +27,27 @@
   align-items: flex-start;
 }
 
+.Text1 {
+  width: 500rpx;
+  position: fixed;
+  top: 400rpx;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.Text2 {
+  width: 500rpx;
+  position: fixed;
+  top: 452rpx;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
 .TextItem {
   font-size: 40rpx;
+  white-space: pre-wrap;
 }
 
 .LeftBar {
@@ -42,26 +61,36 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  
-}
-.LeftBar text{
-  vertical-align:middle;
 }
 
 .RightBar {
   height: 100%;
   width: 100rpx;
-  border-left: 6rpx solid #ddd;
+  border-right: 6rpx solid #ddd;
   position: fixed;
   right: 0;
   top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .BarItem {
   width: 80rpx;
   height: 80rpx;
   padding: 0rpx;
-  text-align: center;
-  display: table-cell;
-  vertical-align: middle;
+  border: solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.BarItemClick {
+  width: 80rpx;
+  height: 80rpx;
+  padding: 0rpx;
+  border: solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
