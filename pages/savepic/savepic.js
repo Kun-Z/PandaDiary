@@ -44,6 +44,7 @@ Page({
     this.setData({
       FontSize: _fontsize
     })
+    this.setText()
   },
   L3Tap: function (e) {
     var tapkey = e.target.dataset.key
@@ -168,6 +169,7 @@ Page({
         ['textArr[' + j + '][' + k + '].pos']: j + '.' + k
       })
     }
+    this.getHeight()
     console.log(this.data.textArr)
   },
   /* 生命周期函数--监听页面显示*/
@@ -181,16 +183,57 @@ Page({
     });
     this.setText();
   },
-  /* 生命周期函数--监听页面隐藏*/
-  onHide: function () {
-
+  /*获取截图高度*/
+  getHeight: function () {
+    const that = this
+    wx.createSelectorQuery().select('#textDiv').boundingClientRect(function (rect) {
+      rect.height  // 节点的高度
+      that.setData({
+        h: rect.height + 200
+      })
+      console.log(that.data.h)
+    }).exec()
   },
-  /* 生命周期函数--监听页面卸载*/
-  onUnload: function () {
-
+  getImage: function () {
+    var context = wx.createCanvasContext('myCanvas')
+    context.draw(false, this.getTempFilePath)
   },
-  /* 用户点击右上角分享*/
-  onShareAppMessage: function () {
-
-  }
+  /*获取图片生成的临时路径*/
+  getTempFilePath: function () {
+    wx.canvasToTempFilePath({
+      canvasId: 'myCanvas',
+      success: (res) => {
+        this.setData({
+          shareTempFilePath: res.tempFilePath
+        })
+      }
+    })
+  },
+  //保存至相册
+  saveImageToPhone: function () {
+    this.getTempFilePath()
+    if (this.data.shareTempFilePath) {
+      wx.saveImageToPhotosAlbum({
+        filePath: this.data.shareTempFilePath,
+        success: (res) => {
+          console.log(res)
+        },
+        fail: (err) => {
+          console.log(err)
+        }
+      })
+    }
+  },
+  switch64:function(){
+    
+  },
+  /* 生命周期函数--监听页面初次渲染完成*/
+  onReady: function () {
+    var context = wx.createCanvasContext('myCanvas', this)
+    context.setStrokeStyle("#00ff00")
+    context.setLineWidth(5)
+    context.rect(0, 0, 200, 200)
+    context.stroke()
+    context.draw(false, this.getTempFilePath)
+  },
 })

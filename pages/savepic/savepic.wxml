@@ -1,6 +1,7 @@
+<!-- <view canvas-id="myCanvas" class='PicBox' style='height:{{h}}px'> -->
 <view class='PicBox'>
-  <image class='Pic' src='../../image/1.png' mode='aspectFill'></image>
-  <view class="{{item[0].class?'Text1':'Text'}}" wx:for='{{textArr}}' data-key='{{index}}'>
+  <image class='Pic' id='picDiv' src='../../image/1.png' mode='aspectFill'></image>
+  <view class="{{center?'Text1':'Text'}}" id='textDiv' wx:for='{{textArr}}' data-key='{{index}}'>
     <view class='TextItem' wx:for='{{item}}' wx:for-item='newItem' style='font-size:{{FontSize}}rpx;{{newItem.style}}' data-key='{{newItem.pos}}' bindtap='textTap'>{{newItem.value}}</view>
   </view>
 </view>
@@ -12,11 +13,11 @@
   </block>
 </view>
 <view class='BottomBar'>
-  <button class='Button'>
+  <button class='Button' bindtap='saveImageToPhone'>
     <image class='icon' src='../../image/savepic.png' mode='aspectFit'></image>
     <text class='title'>保存</text>
   </button>
-  <button class='Button'>
+  <button class='Button' bindtap='switch64'>
     <image class='icon' src='../../image/share.png' mode='aspectFit'></image>
     <text class='title'>分享</text>
   </button>
