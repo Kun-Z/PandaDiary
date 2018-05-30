@@ -1,19 +1,14 @@
 <view class='PicBox'>
   <image class='Pic' src='../../image/1.png' mode='aspectFill'></image>
-  <view class="{{L4?'Text1':'Text'}}">
-    <block wx:for='{{textSplit}}'>
-      <view class='TextItem' style='font-size: {{fontsize}}rpx' data-key='{{index}}'>{{item}}</view>
-    </block>
-  </view>
-  <view wx:if='{{L4}}' class='Text2'>
-    <block wx:for='{{textSplit2}}'>
-      <view class='TextItem' data-key='{{index}}'>{{item}}</view>
-    </block>
+  <view class="{{item[0].class?'Text1':'Text'}}" wx:for='{{textArr}}' data-key='{{index}}'>
+    <view class='TextItem' wx:for='{{item}}' wx:for-item='newItem' style='font-size:{{FontSize}}rpx;{{newItem.style}}' data-key='{{newItem.pos}}' bindtap='textTap'>{{newItem.value}}</view>
   </view>
 </view>
 <view class='LeftBar'>
   <block wx:for='{{LeftBar}}'>
-    <button class="{{Number(item.key)?'BarItemClick':'BarItem'}}" bindtap='{{item.tap}}' data-key='{{item.key}}'>{{item.text}}</button>
+    <button class="{{item.value?'BarItemClick':'BarItem'}}" style='{{item.style}}' bindtap='{{item.tap}}' data-key='{{item.key}}' data-id='{{index}}'>
+      <view class='BarItemText'>{{item.text}}</view>
+    </button>
   </block>
 </view>
 <view class='BottomBar'>

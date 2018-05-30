@@ -7,21 +7,17 @@
   top: 0;
   left: 230rpx;
   display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
 .Pic {
   width: 500rpx;
   height: 400rpx;
-  /* border: 1rpx solid; */
-  position: absolute;
-  top: 10rpx;
 }
 
 .Text {
   width: 500rpx;
-  position: fixed;
-  top: 400rpx;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
@@ -29,24 +25,13 @@
 
 .Text1 {
   width: 500rpx;
-  position: fixed;
-  top: 400rpx;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.Text2 {
-  width: 500rpx;
-  position: fixed;
-  top: 452rpx;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
+  justify-content: center;
 }
 
 .TextItem {
-  /* font-size: 60rpx; */
   white-space: pre-wrap;
 }
 
@@ -61,26 +46,39 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  /* flex-direction: column; */
-  /* justify-content: center; */
+  /* flex-direction: column; *//* justify-content: center; */
 }
 
 .BarItem {
   width: 80rpx;
   height: 80rpx;
-  padding: 0rpx;
-  border: solid white;
+  /* padding-left: 0rpx; */
+  border: solid gray;
+  border-radius: 0rpx;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.BarItem::after {
+  border: none;
 }
 
 .BarItemClick {
   width: 80rpx;
   height: 80rpx;
   padding: 0rpx;
-  border: solid black;
+  border: solid lightcoral;
+  background-color: lightpink;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.BarItemClick::after {
+  border: none;
+}
+
+.BarItemText {
+  font-size: 40rpx;
 }
