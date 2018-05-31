@@ -1,25 +1,62 @@
 /* pages/index/index.wxss */
 
-.ImageBox {
-  height: 200rpx;
+.page {
+  width: 100%;
+  height: 100%;
   position: fixed;
-  top: 20rpx;
   left: 0;
   right: 0;
   margin: 0 auto;
-  border: 5rpx solid
+  display: flex;
+  align-items: center;
+  align-content: space-around;
+}
+
+.Box {
+  width: 100%;
+  height: 1106rpx;
+  position: relative;
+  margin: 10rpx;
+}
+
+.ImageBox {
+  height: 250rpx;
+  width: 650rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  border: 8rpx solid;
+}
+
+.ImageSec {
+  width: 100%;
+  height: 100%;
+  background-color: cornflowerblue;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.ImageItem {
+  width: 200rpx;
+  height: 160rpx;
+  margin: 10rpx;
 }
 
 .TitleBox {
   height: 60rpx;
   width: 650rpx;
-  position: fixed;
+  position: absolute;
   top: 260rpx;
   left: 0;
   right: 0;
   margin: 0 auto;
   display: flex;
   justify-content: center;
+  border-left: 8rpx solid;
+  border-right: 8rpx solid;
 }
 
 .Data {
@@ -27,7 +64,8 @@
   height: 60rpx;
   font-size: 40rpx;
   text-align: center;
-  border: solid 3rpx;
+  border-right: 4rpx solid;
+  line-height:60rpx;
 }
 
 .Weather {
@@ -35,11 +73,11 @@
   width: 325rpx;
   font-size: 40rpx;
   text-align: center;
-  border: solid 3rpx;
+  border-left: 4rpx solid;
+  line-height:60rpx;
 }
 
 .WeatherSec {
-  height: 240rpx;
   width: 100%;
   background-color: cornflowerblue;
   position: fixed;
@@ -50,24 +88,23 @@
 }
 
 .WeatherItem {
-  width: 150rpx;
-  height: 50rpx;
-  font-size: 40rpx;
-  text-align: center;
-  /* border: 1rpx solid;  */
-  margin: 15rpx;
-  justify-content: center;
+  font-size: 36rpx;
+  white-space: pre-wrap;
+  margin: 10rpx;
+  padding: 10rpx;
+  border: 5rpx solid #3481eb;
+  border-radius: 30rpx;
 }
 
 .TextBox {
-  height: 780rpx;
+  height: 680rpx;
   width: 100%;
-  position: fixed;
+  position: absolute;
   top: 320rpx;
 }
 
 .TextArea {
-  height: 750rpx;
+  height: 650rpx;
   width: 650rpx;
   position: absolute;
   left: 0;

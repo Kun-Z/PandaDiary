@@ -1,26 +1,41 @@
 <!--pages/index/index.wxml-->
-<image class='ImageBox' src='../../image/1.png' mode='aspectFit'>
-</image>
-<view class='WeatherSec' hidden='{{isHidden}}'>
-  <block wx:for='{{weatherKey}}'>
-    <view class="WeatherItem" bindtap='weatherKeyTap' data-key='{{item}}'>{{item}}</view>
+<view class='page'>
+  <view class='Box'>
+    <image class='ImageBox' hidden='{{showImage}}' src='{{src}}' bindtap='showImageSec' mode='aspectFit'></image>
+    <view class='TitleBox' hidden='{{showImage}}'>
+      <picker class='Data' mode='date' bindchange="bindChange">{{year}}年{{month}}月{{day}}日</picker>
+      <input class='Weather' type='text' value='{{weather}}' maxlength='8' bindblur='weatherOff' bindfocus='weatherInput'>
+      </input>
+    </view>
+    <view class='TextBox' hidden='{{showImage}}'>
+      <textarea class='TextArea' value='{{textArea}}' placeholder='输入日记内容...' maxlength='{{max}}' adjust-position='true' bindblur='textOff'>
+      </textarea>
+      <!-- <text class='TextLen'>{{currentTxetLen|0}}/{{max}}</text> -->
+    </view>
+  </view>
+  <view class='WeatherSec' hidden='{{isHidden}}'>
+    <block wx:for='{{weatherKey}}'>
+      <view class="WeatherItem" bindtap='weatherKeyTap' data-key='{{item}}'>{{item}}</view>
+    </block>
+  </view>
+  <view class='BottomBar' hidden='{{showImage}}'>
+    <button class='Button' open-type="share">
+      <image class='icon' src='../../image/shareP.png' mode='aspectFit'></image>
+      <text class='title'>分享小程序</text>
+    </button>
+    <button class='Button' bindtap='clearText'>
+      <image class='icon' src='../../image/clear.png' mode='aspectFit'></image>
+      <text class='title'>清空文本</text>
+    </button>
+    <navigator class='Button' url="/pages/savepic/savepic">
+      <image class='icon' src='../../image/edit.png' mode='aspectFit'></image>
+      <text class='title'>编辑</text>
+    </navigator>
+  </view>
+</view>
+
+<scroll-view class='ImageSec' scroll-y='true' wx:if='{{showImage}}' bindtap='imageTap'>
+  <block wx:for='{{imageList}}'>
+    <image src='{{item}}' class="ImageItem" bindtap='imageItemTap' data-key='{{item}}' mode='aspectFit'></image>
   </block>
-</view>
-<view class='TitleBox'>
-  <picker class='Data' mode='date' bindchange="bindChange">
-    <text>{{year}}年{{month}}月{{day}}日</text>
-  </picker>
-  <input class='Weather' type='text' value='{{weather}}' maxlength='8' bindblur='weatherOff' bindfocus='weatherInput'>
-  </input>
-</view>
-<view class='TextBox'>
-  <textarea class='TextArea' placeholder='输入日记内容...' maxlength='{{max}}' adjust-position='true' bindblur='textOff'>
-  </textarea>
-  <!-- <text class='TextLen'>{{currentTxetLen|0}}/{{max}}</text> -->
-</view>
-<view class='BottomBar'>
-  <navigator class='Button' url="/pages/savepic/savepic">
-    <image class='icon' src='../../image/savepic.png' mode='aspectFit'></image>
-    <text class='title'>预览</text>
-  </navigator >
-</view>
+</scroll-view>

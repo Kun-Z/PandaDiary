@@ -9,16 +9,18 @@ Page({
     LeftBar: [
       { key: 'L1', tap: 'L1Tap', text: '年', value: 0, style: 'border-radius:0rpx' },
       { key: 'L2', tap: 'L1Tap', text: '月', value: 0, style: 'border-radius:0rpx' },
-      { key: 'L3', tap: 'L1Tap', text: ',', value: 0, style: 'border-radius:0rpx' },
-      { key: 'L4', tap: 'L1Tap', text: '↲', value: 0, style: 'border-radius:0rpx' },
+      { key: 'L3', tap: 'L1Tap', text: '日', value: 0, style: 'border-radius:0rpx' },
+      { key: 'L4', tap: 'L1Tap', text: '晴', value: 0, style: 'border-radius:0rpx' },
+      { key: 'L5', tap: 'L1Tap', text: ',', value: 0, style: 'border-radius:0rpx' },
+      { key: 'L6', tap: 'L1Tap', text: '↲', value: 0, style: 'border-radius:0rpx' },
       { key: '=', tap: 'L1Tap', text: "==", value: 0, style: 'border-radius:0rpx' },
-      { key: 'L5', tap: 'L2Tap', text: '+', value: 0, style: 'border-radius:30rpx' },
-      { key: 'L6', tap: 'L2Tap', text: '-', value: 0, style: 'border-radius:30rpx' },
+      { key: '+', tap: 'L2Tap', text: '+', value: 0, style: 'border-radius:30rpx' },
+      { key: '-', tap: 'L2Tap', text: '-', value: 0, style: 'border-radius:30rpx' },
       { key: 'B', tap: 'L3Tap', text: "B", value: 0, style: 'border-radius:60rpx;font-weight:bold' },
       { key: 'I', tap: 'L3Tap', text: "/", value: 0, style: 'border-radius:60rpx' },
-      { key: 'U', tap: 'L3Tap', text: "U", value: 0, style: 'border-radius:60rpx;text-decoration-line: underline' },
     ],
   },
+  /*方块字体*/
   L1Tap: function (e) {
     var index = e.target.dataset.id
     var str = 'LeftBar[' + index + '].value'
@@ -35,9 +37,10 @@ Page({
     }
     this.setText()
   },
+  /*+-*/
   L2Tap: function (e) {
     var tapkey = e.target.dataset.key
-    if (tapkey == 'L5') {
+    if (tapkey == '+') {
       var _fontsize = this.data.FontSize + 5
     }
     else {
@@ -48,6 +51,7 @@ Page({
     })
     this.setText()
   },
+  /*圆形按钮*/
   L3Tap: function (e) {
     var tapkey = e.target.dataset.key
     if (this.data.RTap == tapkey) {
@@ -60,7 +64,7 @@ Page({
         RTap: tapkey
       })
     }
-    for (var i = 7; i < this.data.LeftBar.length; i++) {
+    for (var i = 9; i < this.data.LeftBar.length; i++) {
       if (this.data.LeftBar[i].key == tapkey & this.data.LeftBar[i].value == 0) {
         this.setData({
           ['LeftBar[' + i + '].value']: 1
@@ -127,10 +131,10 @@ Page({
   },
   /*设置文本*/
   setText: function () {
-    var text1 = this.data.month + '月' + this.data.day + '日'
+    var text1 = this.data.month + '月' + this.data.day + '日,'
     /*显示年*/
     if (this.data.LeftBar[0].value) {
-      text1 = this.data.year + '年' + this.data.month + '月' + this.data.day + '日'
+      text1 = this.data.year + '年' + this.data.month + '月' + this.data.day + '日,'
     }
     /*显示月*/
     if (this.data.LeftBar[1].value) {
@@ -138,19 +142,26 @@ Page({
       text1 = text1.replace('月', '/')
       text1 = text1.replace('日', '')
     }
-    var text2 = text1 + ',' + this.data.weather + ',';
-    /*天气逗号*/
+    /*是否显示日期*/
     if (this.data.LeftBar[2].value) {
-      text2 = text1 + '  ' + this.data.weather + '  '
+      text1 = ''
+    }
+    var text2 = text1 + this.data.weather + ',';
+    if (this.data.LeftBar[3].value) {
+      text2 = ''
+    }
+    /*是否显示逗号*/
+    if (this.data.LeftBar[4].value) {
+      text2 = text2.replace(/,/g, ' ')
     }
     var inputTxet = text2 + this.data.text
     /*新起一行*/
-    if (this.data.LeftBar[3].value) {
+    if (this.data.LeftBar[5].value) {
       inputTxet = text2.slice(0, text2.length - 1) + '\n' + this.data.text
     }
     /*居中显示*/
     this.setData({
-      center: this.data.LeftBar[4].value
+      center: this.data.LeftBar[6].value
     })
     /*分解文本*/
     var textSplit = inputTxet.split("")
@@ -182,6 +193,7 @@ Page({
   },
   /* 生命周期函数--监听页面显示*/
   onShow: function () {
+    var info = wx.getSystemInfoSync()
     this.setData({
       year: wx.getStorageSync('year'),
       month: wx.getStorageSync('month'),
@@ -189,6 +201,7 @@ Page({
       weather: wx.getStorageSync('weather'),
       text: wx.getStorageSync('text'),
       src: wx.getStorageSync('src'),
+      LBarHeight: info.windowHeight - 50
     });
     this.setText();
   },
@@ -207,17 +220,24 @@ Page({
     /*字号*/
     ctx.setFontSize(that.data.FontSize / 2)
     ctx.setTextBaseline('top')
+    console.log(that.data.textArr)
+    if (that.data.textArr.length == 0) {
+      ctx.draw(false)
+      that.setData({
+        isHidden: 1,
+        canvas: 'height:' + 200 + 'px;left:0'
+      })
+      return
+    }
     /*文本循环*/
     let promise = new Promise(function (resolve, reject) {
       var cur = 0
+      var textDivTop = that.data.textDivTop
+      var textDivLeft = that.data.textDivLeft
       for (var i = 0; i < that.data.textArr.length; i++) {
         var textDiv = '#textDiv' + i
         wx.createSelectorQuery().select(textDiv).boundingClientRect(function (rect) {
           var m = rect.dataset.key
-          if (m == 0) {
-            var textDivTop = rect.top
-            var textDivLeft = rect.left
-          }
           for (var j = 0; j < that.data.textArr[m].length; j++) {
             var itemDiv = '#itemDiv' + m + j
             wx.createSelectorQuery().select(itemDiv).boundingClientRect(function (rect) {
@@ -297,5 +317,13 @@ Page({
   },
   /* 生命周期函数--监听页面初次渲染完成*/
   onReady: function () {
+    /*获取第一行文字的位置*/
+    const that = this
+    wx.createSelectorQuery().select('#textDiv0').boundingClientRect(function (rect) {
+      that.setData({
+        textDivTop: rect.top,
+        textDivLeft: rect.left
+      })
+    }).exec()
   },
 })
