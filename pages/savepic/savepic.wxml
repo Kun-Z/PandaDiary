@@ -1,24 +1,31 @@
 <!-- <view canvas-id="myCanvas" class='PicBox' style='height:{{h}}px'> -->
-<view class='PicBox'>
-  <image class='Pic' id='picDiv' src='../../image/1.png' mode='aspectFill'></image>
-  <view class="{{center?'Text1':'Text'}}" id='textDiv' wx:for='{{textArr}}' data-key='{{index}}'>
-    <view class='TextItem' wx:for='{{item}}' wx:for-item='newItem' style='font-size:{{FontSize}}rpx;{{newItem.style}}' data-key='{{newItem.pos}}' bindtap='textTap'>{{newItem.value}}</view>
+<canvas canvas-id='myCanvas' class='canvasBox' style='{{canvas}}'></canvas>
+<view class='PicBox' hidden='{{isHidden}}'>
+  <image class='Pic' id='picDiv' src='{{src}}' mode='aspectFill'></image>
+  <view class='Text' style="{{center?'justify-content: center':''}}" id='textDiv{{index}}' wx:for='{{textArr}}' data-key='{{index}}'>
+    <view class='TextItem' wx:for='{{item}}' id='itemDiv{{newItem.index}}' wx:for-item='newItem' style='font-size:{{FontSize}}rpx;{{newItem.style}}' data-key='{{newItem.pos}}' bindtap='textTap'>{{newItem.value}}</view>
   </view>
 </view>
-<view class='LeftBar'>
+<view class='LeftBar' hidden='{{isHidden}}'>
   <block wx:for='{{LeftBar}}'>
     <button class="{{item.value?'BarItemClick':'BarItem'}}" style='{{item.style}}' bindtap='{{item.tap}}' data-key='{{item.key}}' data-id='{{index}}'>
       <view class='BarItemText'>{{item.text}}</view>
     </button>
   </block>
 </view>
-<view class='BottomBar'>
-  <button class='Button' bindtap='saveImageToPhone'>
+<view class='BottomBar' >
+  <button class='Button' bindtap='backSavePic'>
     <image class='icon' src='../../image/savepic.png' mode='aspectFit'></image>
-    <text class='title'>保存</text>
+    <text class='title'>返回</text>
   </button>
-  <button class='Button' bindtap='switch64'>
+  <button class='Button' bindtap='shareImage'>
     <image class='icon' src='../../image/share.png' mode='aspectFit'></image>
-    <text class='title'>分享</text>
+    <text class='title'>分享保存</text>
+  </button>
+</view>
+<view class='BottomBar' hidden='{{isHidden}}'>
+  <button class='Button' bindtap='getImage'>
+    <image class='icon' src='../../image/share.png' mode='aspectFit'></image>
+    <text class='title'>预览</text>
   </button>
 </view>

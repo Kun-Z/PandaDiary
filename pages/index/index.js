@@ -12,6 +12,7 @@ Page({
     month: date.getMonth() + 1,
     day: date.getDate(),
     textArea: '',
+    src:'../../image/1.png',
   },
   /*选择日期*/
   bindChange: function (e) {
@@ -68,7 +69,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
 
   /**
@@ -94,6 +95,7 @@ Page({
     wx.setStorageSync('day', this.data.day);
     wx.setStorageSync('weather', this.data.weather);
     wx.setStorageSync('text', this.data.textArea);
+    wx.setStorageSync('src', this.data.src);
   },
 
   /**
@@ -121,6 +123,9 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
-  }
+    return {
+      path: 'pages/index/index',
+      imageUrl: '../../image/1.png'
+    }
+  },
 })

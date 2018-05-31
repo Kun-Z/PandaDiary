@@ -4,6 +4,8 @@ Page({
   data: {
     FontSize: 50,
     RTap: 0,
+    max: 0,
+    isHidden: 0,
     LeftBar: [
       { key: 'L1', tap: 'L1Tap', text: '年', value: 0, style: 'border-radius:0rpx' },
       { key: 'L2', tap: 'L1Tap', text: '月', value: 0, style: 'border-radius:0rpx' },
@@ -150,9 +152,14 @@ Page({
     this.setData({
       center: this.data.LeftBar[4].value
     })
+    /*分解文本*/
     var textSplit = inputTxet.split("")
     this.setData({
       textArr: []
+    })
+    /*换行*/
+    this.setData({
+      max: 0,
     })
     for (var i = 0, j = 0, k = 0, isNew = 0; i < textSplit.length; i++ , k++) {
       if (textSplit[i] == '\n') {
@@ -165,11 +172,12 @@ Page({
       }
       isNew = 1
       this.setData({
+        max: this.data.max + 1,
         ['textArr[' + j + '][' + k + '].value']: textSplit[i],
-        ['textArr[' + j + '][' + k + '].pos']: j + '.' + k
+        ['textArr[' + j + '][' + k + '].pos']: j + '.' + k,
+        ['textArr[' + j + '][' + k + '].index']: j.toString() + k.toString()
       })
     }
-    this.getHeight()
     console.log(this.data.textArr)
   },
   /* 生命周期函数--监听页面显示*/
@@ -180,60 +188,114 @@ Page({
       day: wx.getStorageSync('day'),
       weather: wx.getStorageSync('weather'),
       text: wx.getStorageSync('text'),
+      src: wx.getStorageSync('src'),
     });
     this.setText();
   },
-  /*获取截图高度*/
-  getHeight: function () {
-    const that = this
-    wx.createSelectorQuery().select('#textDiv').boundingClientRect(function (rect) {
-      rect.height  // 节点的高度
-      that.setData({
-        h: rect.height + 200
-      })
-      console.log(that.data.h)
-    }).exec()
+  /*返回预览*/
+  backSavePic: function () {
+    this.setData({
+      isHidden: 0,
+      canvas: 'left:999px'
+    })
   },
+  /*绘制画布*/
   getImage: function () {
-    var context = wx.createCanvasContext('myCanvas')
-    context.draw(false, this.getTempFilePath)
+    const that = this
+    var ctx = wx.createCanvasContext('myCanvas')
+    ctx.drawImage(that.data.src, 0, 0, 250, 200)
+    /*字号*/
+    ctx.setFontSize(that.data.FontSize / 2)
+    ctx.setTextBaseline('top')
+    /*文本循环*/
+    let promise = new Promise(function (resolve, reject) {
+      var cur = 0
+      for (var i = 0; i < that.data.textArr.length; i++) {
+        var textDiv = '#textDiv' + i
+        wx.createSelectorQuery().select(textDiv).boundingClientRect(function (rect) {
+          var m = rect.dataset.key
+          if (m == 0) {
+            var textDivTop = rect.top
+            var textDivLeft = rect.left
+          }
+          for (var j = 0; j < that.data.textArr[m].length; j++) {
+            var itemDiv = '#itemDiv' + m + j
+            wx.createSelectorQuery().select(itemDiv).boundingClientRect(function (rect) {
+              var n = Number(rect.dataset.key.split('.')[1])
+              cur += 1
+              let Bold = ''
+              let Italic = ''
+              ctx.font = that.data.FontSize / 2 + 'px sans-serif'
+              if (that.data.textArr[m][n].B == 1) {
+                Bold = 'bold '
+              }
+              if (that.data.textArr[m][n].I == 1) {
+                Italic = 'italic '
+              }
+              ctx.font = Italic + Bold + that.data.FontSize / 2 + 'px sans-serif'
+              ctx.fillText(that.data.textArr[m][n].value, rect.left - textDivLeft, rect.top - textDivTop + 190)
+              if (cur == that.data.max) {
+                var canvasH = rect.top + rect.height - 10
+                that.setData({
+                  canvas: 'height:' + canvasH + 'px'
+                })
+                resolve(canvasH)
+              }
+            }).exec()
+          }
+        }).exec()
+      }
+    })
+    promise.then(function (canvasH) {
+      ctx.draw(false)
+      that.setData({
+        isHidden: 1,
+        canvas: 'height:' + canvasH + 'px;left:0'
+      })
+    })
   },
-  /*获取图片生成的临时路径*/
-  getTempFilePath: function () {
+  /*保存至相册*/
+  saveImageToPhone: function () {
     wx.canvasToTempFilePath({
       canvasId: 'myCanvas',
+      fileType: 'jpg',
+      /*生成图片成功*/
       success: (res) => {
-        this.setData({
-          shareTempFilePath: res.tempFilePath
+        console.log(res.tempFilePath)
+        /*保存到手机相册*/
+        wx.saveImageToPhotosAlbum({
+          filePath: res.tempFilePath,
+          success: (res) => {
+            console.log(res)
+          },
+          fail: (err) => {
+          }
         })
       }
     })
   },
-  //保存至相册
-  saveImageToPhone: function () {
-    this.getTempFilePath()
-    if (this.data.shareTempFilePath) {
-      wx.saveImageToPhotosAlbum({
-        filePath: this.data.shareTempFilePath,
-        success: (res) => {
-          console.log(res)
-        },
-        fail: (err) => {
-          console.log(err)
-        }
-      })
-    }
+  /*分享到朋友圈*/
+  shareImage: function () {
+    wx.canvasToTempFilePath({
+      canvasId: 'myCanvas',
+      fileType: 'jpg',
+      /*生成图片成功*/
+      success: (res) => {
+        console.log(res.tempFilePath)
+        wx.previewImage({
+          current: res.tempFilePath,
+          urls: [res.tempFilePath]
+        })
+      }
+    })
   },
-  switch64:function(){
-    
+  onShareAppMessage: function () {
+    return {
+      path: 'pages/index/index',
+      imageUrl: '../../image/1.png'
+    }
   },
   /* 生命周期函数--监听页面初次渲染完成*/
   onReady: function () {
-    var context = wx.createCanvasContext('myCanvas', this)
-    context.setStrokeStyle("#00ff00")
-    context.setLineWidth(5)
-    context.rect(0, 0, 200, 200)
-    context.stroke()
-    context.draw(false, this.getTempFilePath)
   },
 })
