@@ -6,6 +6,7 @@ Page({
     RTap: 0,
     max: 0,
     isHidden: 0,
+    showImage: 0,
     LeftBar: [
       { key: 'L1', tap: 'L1Tap', text: '年', value: 0, style: 'border-radius:0rpx' },
       { key: 'L2', tap: 'L1Tap', text: '月', value: 0, style: 'border-radius:0rpx' },
@@ -14,6 +15,7 @@ Page({
       { key: 'L5', tap: 'L1Tap', text: ',', value: 0, style: 'border-radius:0rpx' },
       { key: 'L6', tap: 'L1Tap', text: '↲', value: 0, style: 'border-radius:0rpx' },
       { key: '=', tap: 'L1Tap', text: "==", value: 0, style: 'border-radius:0rpx' },
+      { key: '图', tap: 'showImageSec', text: "图", value: 0, style: 'border-radius:0rpx' },
       { key: '+', tap: 'L2Tap', text: '+', value: 0, style: 'border-radius:30rpx' },
       { key: '-', tap: 'L2Tap', text: '-', value: 0, style: 'border-radius:30rpx' },
       { key: 'B', tap: 'L3Tap', text: "B", value: 0, style: 'border-radius:60rpx;font-weight:bold' },
@@ -49,7 +51,6 @@ Page({
     this.setData({
       FontSize: _fontsize
     })
-    this.setText()
   },
   /*圆形按钮*/
   L3Tap: function (e) {
@@ -64,7 +65,7 @@ Page({
         RTap: tapkey
       })
     }
-    for (var i = 9; i < this.data.LeftBar.length; i++) {
+    for (var i = 10; i < this.data.LeftBar.length; i++) {
       if (this.data.LeftBar[i].key == tapkey & this.data.LeftBar[i].value == 0) {
         this.setData({
           ['LeftBar[' + i + '].value']: 1
@@ -110,25 +111,6 @@ Page({
       ['textArr[' + pos1 + '][' + pos2 + '].' + 'style']: str
     })
   },
-  textBoxTap: function (e) {
-    console.log(e)
-    if (this.data.RTap == 0) {
-      return
-    }
-    else if (this.data.RTap == '=') {
-      var key = e.currentTarget.dataset.key
-      if (this.data.textArr[key][0].class == 1) {
-        this.setData({
-          ['textArr[' + key + '][0].' + 'class']: 0
-        })
-      }
-      else {
-        this.setData({
-          ['textArr[' + key + '][0].' + 'class']: 1
-        })
-      }
-    }
-  },
   /*设置文本*/
   setText: function () {
     var text1 = this.data.month + '月' + this.data.day + '日,'
@@ -146,9 +128,11 @@ Page({
     if (this.data.LeftBar[2].value) {
       text1 = ''
     }
-    var text2 = text1 + this.data.weather + ',';
     if (this.data.LeftBar[3].value) {
-      text2 = ''
+      var text2 = text1
+    }
+    else {
+      var text2 = text1 + this.data.weather + ',';
     }
     /*是否显示逗号*/
     if (this.data.LeftBar[4].value) {
@@ -189,7 +173,7 @@ Page({
         ['textArr[' + j + '][' + k + '].index']: j.toString() + k.toString()
       })
     }
-    console.log(this.data.textArr)
+    // console.log(this.data.textArr)
   },
   /* 生命周期函数--监听页面显示*/
   onShow: function () {
@@ -201,7 +185,8 @@ Page({
       weather: wx.getStorageSync('weather'),
       text: wx.getStorageSync('text'),
       src: wx.getStorageSync('src'),
-      LBarHeight: info.windowHeight - 50
+      LBarHeight: info.windowHeight - 50,
+      PicBoxwidth: info.windowWidth - 110
     });
     this.setText();
   },
@@ -209,11 +194,24 @@ Page({
   backSavePic: function () {
     this.setData({
       isHidden: 0,
-      canvas: 'left:999px'
     })
+    var ctx = wx.createCanvasContext('myCanvas')
+    ctx.draw()
+  },
+  /*预览*/
+  getImage: function () {
+    wx.showToast({
+      title: '请稍后',
+      icon: 'loading',
+      duration: 1000,
+    })
+    this.setData({
+      scrollTop: 0
+    })
+    setTimeout(this.drawImage, 1000)
   },
   /*绘制画布*/
-  getImage: function () {
+  drawImage: function () {
     const that = this
     var ctx = wx.createCanvasContext('myCanvas')
     ctx.drawImage(that.data.src, 0, 0, 250, 200)
@@ -225,7 +223,7 @@ Page({
       ctx.draw(false)
       that.setData({
         isHidden: 1,
-        canvas: 'height:' + 200 + 'px;left:0'
+        canvas: 'height:' + 200 + 'px'
       })
       return
     }
@@ -253,9 +251,9 @@ Page({
                 Italic = 'italic '
               }
               ctx.font = Italic + Bold + that.data.FontSize / 2 + 'px sans-serif'
-              ctx.fillText(that.data.textArr[m][n].value, rect.left - textDivLeft, rect.top - textDivTop + 190)
+              ctx.fillText(that.data.textArr[m][n].value, rect.left - textDivLeft, rect.top - textDivTop + 200)
               if (cur == that.data.max) {
-                var canvasH = rect.top + rect.height - 10
+                var canvasH = rect.top + rect.height
                 that.setData({
                   canvas: 'height:' + canvasH + 'px'
                 })
@@ -267,10 +265,10 @@ Page({
       }
     })
     promise.then(function (canvasH) {
-      ctx.draw(false)
+      ctx.draw()
       that.setData({
         isHidden: 1,
-        canvas: 'height:' + canvasH + 'px;left:0'
+        canvas: 'height:' + canvasH + 'px'
       })
     })
   },
@@ -281,7 +279,6 @@ Page({
       fileType: 'jpg',
       /*生成图片成功*/
       success: (res) => {
-        console.log(res.tempFilePath)
         /*保存到手机相册*/
         wx.saveImageToPhotosAlbum({
           filePath: res.tempFilePath,
@@ -296,12 +293,19 @@ Page({
   },
   /*分享到朋友圈*/
   shareImage: function () {
+    wx.showToast({
+      title: '长按图片分享',
+      icon: 'loading',
+      duration: 1000,
+    })
+    setTimeout(this.previewImage, 1000)
+  },
+  previewImage: function () {
     wx.canvasToTempFilePath({
       canvasId: 'myCanvas',
       fileType: 'jpg',
       /*生成图片成功*/
       success: (res) => {
-        console.log(res.tempFilePath)
         wx.previewImage({
           current: res.tempFilePath,
           urls: [res.tempFilePath]
@@ -317,6 +321,9 @@ Page({
   },
   /* 生命周期函数--监听页面初次渲染完成*/
   onReady: function () {
+    this.setData({
+      imageList: wx.getStorageSync('imageList')
+    })
     /*获取第一行文字的位置*/
     const that = this
     wx.createSelectorQuery().select('#textDiv0').boundingClientRect(function (rect) {
@@ -325,5 +332,27 @@ Page({
         textDivLeft: rect.left
       })
     }).exec()
+  },
+  /*点击图片*/
+  showImageSec: function () {
+    this.setData({
+      showImage: 1,
+      isHidden: 1,
+    })
+  },
+  /*选择图片*/
+  imageItemTap: function (e) {
+    this.setData({
+      showImage: 0,
+      isHidden: 0,
+      src: e.currentTarget.dataset.key
+    })
+  },
+  /*图片选择点击空白*/
+  imageTap: function (e) {
+    this.setData({
+      showImage: 0,
+      isHidden: 0,
+    })
   },
 })

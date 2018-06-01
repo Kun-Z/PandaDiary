@@ -1,10 +1,10 @@
 /* pages/savepic/savepic.wxss */
 
 .canvasBox {
-  width: 500rpx;
-  border: 5rpx solid black;
+  width: 250px;
+  /* border: 5rpx solid black;  */
   position: absolute;
-  left: 999px;
+  left: 0;
   right: 0;
   margin: 0 auto;
 }
@@ -31,7 +31,7 @@
   width: 500rpx;
   position: absolute;
   top: 0;
-  left: 230rpx;
+  left: 220rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -69,7 +69,7 @@
   height: 1106rpx;
   width: 200rpx;
   /* background-color: CornflowerBlue; */
-  border-right: 6rpx solid #ddd;
+  border-right: 5rpx solid #ddd;
   position: fixed;
   left: 0;
   top: 0;

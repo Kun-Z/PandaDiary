@@ -1,19 +1,36 @@
 <!-- <view canvas-id="myCanvas" class='PicBox' style='height:{{h}}px'> -->
 <canvas canvas-id='myCanvas' class='canvasBox' style='{{canvas}}'></canvas>
-<view class='PicBox' hidden='{{isHidden}}'>
-  <image class='Pic' id='picDiv' src='{{src}}' mode='aspectFit'></image>
-  <view class='Text' style="{{center?'justify-content: center':''}}" id='textDiv{{index}}' wx:for='{{textArr}}' data-key='{{index}}'>
-    <view class='TextItem' wx:for='{{item}}' id='itemDiv{{newItem.index}}' wx:for-item='newItem' style='font-size:{{FontSize}}rpx;{{newItem.style}}' data-key='{{newItem.pos}}' bindtap='textTap'>{{newItem.value}}</view>
+<view class='page' hidden='{{isHidden}}'>
+  <scroll-view class='PicBox' scroll-y='true' scroll-top="{{scrollTop}}" style='height:{{LBarHeight}}px'>
+    <image class='Pic' id='picDiv' src='{{src}}' mode='aspectFit'></image>
+    <view class='Text' style="{{center?'justify-content: center':''}}" id='textDiv{{index}}' wx:for='{{textArr}}' data-key='{{index}}'>
+      <view class='TextItem' wx:for='{{item}}' id='itemDiv{{newItem.index}}' wx:for-item='newItem' style='font-size:{{FontSize}}rpx;{{newItem.style}}' data-key='{{newItem.pos}}' bindtap='textTap'>{{newItem.value}}</view>
+    </view>
+  </scroll-view>
+  <view class='LeftBar' style='height:{{LBarHeight}}px'>
+    <block wx:for='{{LeftBar}}'>
+      <button class="{{item.value?'BarItemClick':'BarItem'}}" style='{{item.style}}' bindtap='{{item.tap}}' data-key='{{item.key}}' data-id='{{index}}'>
+        <view class='BarItemText'>{{item.text}}</view>
+      </button>
+    </block>
+  </view>
+  <view class='BottomBar'>
+    <button class='Button' open-type="share">
+      <image class='icon' src='../../image/shareP.png' mode='aspectFit'></image>
+      <text class='title'>分享小程序</text>
+    </button>
+    <button class='Button' bindtap='getImage'>
+      <image class='icon' src='../../image/preview.png' mode='aspectFit'></image>
+      <text class='title'>预览</text>
+    </button>
   </view>
 </view>
-<view class='LeftBar' hidden='{{isHidden}}' style='height:{{LBarHeight}}px'>
-  <block wx:for='{{LeftBar}}'>
-    <button class="{{item.value?'BarItemClick':'BarItem'}}" style='{{item.style}}' bindtap='{{item.tap}}' data-key='{{item.key}}' data-id='{{index}}'>
-      <view class='BarItemText'>{{item.text}}</view>
-    </button>
+<scroll-view class='ImageSec' scroll-y='true' wx:if='{{showImage}}' bindtap='imageTap'>
+  <block wx:for='{{imageList}}'>
+    <image src='{{item}}' class="ImageItem" bindtap='imageItemTap' data-key='{{item}}' mode='aspectFit'></image>
   </block>
-</view>
-<view class='BottomBar'>
+</scroll-view>
+<view class='BottomBar' wx:if='{{isHidden}}' hidden='{{showImage}}'>
   <button class='Button' bindtap='backSavePic'>
     <image class='icon' src='../../image/back.png' mode='aspectFit'></image>
     <text class='title'>返回</text>
@@ -21,15 +38,5 @@
   <button class='Button' bindtap='shareImage'>
     <image class='icon' src='../../image/share.png' mode='aspectFit'></image>
     <text class='title'>分享保存</text>
-  </button>
-</view>
-<view class='BottomBar' hidden='{{isHidden}}'>
-  <button class='Button' open-type="share">
-    <image class='icon' src='../../image/shareP.png' mode='aspectFit'></image>
-    <text class='title'>分享小程序</text>
-  </button>
-  <button class='Button' bindtap='getImage'>
-    <image class='icon' src='../../image/preview.png' mode='aspectFit'></image>
-    <text class='title'>预览</text>
   </button>
 </view>

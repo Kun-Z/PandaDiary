@@ -1,9 +1,22 @@
 /**app.wxss**/
 
+.page {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  align-content: space-around;
+  background-color: white;
+}
+
 .BottomBar {
   height: 100rpx;
   width: 100%;
-  background-color: #3481EB;
+  background-color: #3481eb;
   border-top-style: 2rpx solid black;
   position: fixed;
   bottom: 0;
@@ -40,5 +53,28 @@
   margin-top: 4rpx;
   font-size: 20rpx;
   text-align: center;
-  line-height:30rpx;
+  line-height: 30rpx;
+}
+
+.Box {
+  width: 100%;
+  height: 1106rpx;
+  position: relative;
+  margin: 10rpx;
+}
+
+.ImageSec {
+  width: 100%;
+  height: 100%;
+  background-color: cornflowerblue;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  z-index: 100;
+}
+
+.ImageItem {
+  width: 200rpx;
+  height: 160rpx;
+  margin: 10rpx;
 }

@@ -1,13 +1,13 @@
 <!--pages/index/index.wxml-->
-<view class='page'>
+<view class='page' hidden='{{showImage}}'>
   <view class='Box'>
-    <image class='ImageBox' hidden='{{showImage}}' src='{{src}}' bindtap='showImageSec' mode='aspectFit'></image>
-    <view class='TitleBox' hidden='{{showImage}}'>
+    <image class='ImageBox' src='{{src}}' bindtap='showImageSec' mode='aspectFit'></image>
+    <view class='TitleBox'>
       <picker class='Data' mode='date' bindchange="bindChange">{{year}}年{{month}}月{{day}}日</picker>
       <input class='Weather' type='text' value='{{weather}}' maxlength='8' bindblur='weatherOff' bindfocus='weatherInput'>
       </input>
     </view>
-    <view class='TextBox' hidden='{{showImage}}'>
+    <view class='TextBox'>
       <textarea class='TextArea' value='{{textArea}}' placeholder='输入日记内容...' maxlength='{{max}}' adjust-position='true' bindblur='textOff'>
       </textarea>
       <!-- <text class='TextLen'>{{currentTxetLen|0}}/{{max}}</text> -->
@@ -18,7 +18,7 @@
       <view class="WeatherItem" bindtap='weatherKeyTap' data-key='{{item}}'>{{item}}</view>
     </block>
   </view>
-  <view class='BottomBar' hidden='{{showImage}}'>
+  <view class='BottomBar'>
     <button class='Button' open-type="share">
       <image class='icon' src='../../image/shareP.png' mode='aspectFit'></image>
       <text class='title'>分享小程序</text>

@@ -80,11 +80,13 @@ Page({
       src: e.currentTarget.dataset.key
     })
   },
+  /*图片选择点击空白*/
   imageTap: function (e) {
     this.setData({
       showImage: 0,
     })
   },
+  /*清楚文本*/
   clearText: function () {
     const that = this
     wx.showModal({
@@ -114,17 +116,17 @@ Page({
         ['imageList[' + i + ']']: '../../image/' + i + '.jpg'
       })
     }
+    wx.setStorageSync('imageList', this.data.imageList);
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
+  /*生命周期函数--监听页面显示*/
   onShow: function () {
+    this.setData({
+      textArea: wx.getStorageSync('text')
+    });
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
+  /*生命周期函数--监听页面隐藏*/
   onHide: function () {
     wx.setStorageSync('year', this.data.year);
     wx.setStorageSync('month', this.data.month);

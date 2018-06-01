@@ -1,24 +1,5 @@
 /* pages/index/index.wxss */
 
-.page {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  align-content: space-around;
-}
-
-.Box {
-  width: 100%;
-  height: 1106rpx;
-  position: relative;
-  margin: 10rpx;
-}
-
 .ImageBox {
   height: 250rpx;
   width: 650rpx;
@@ -28,21 +9,6 @@
   right: 0;
   margin: 0 auto;
   border: 8rpx solid;
-}
-
-.ImageSec {
-  width: 100%;
-  height: 100%;
-  background-color: cornflowerblue;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.ImageItem {
-  width: 200rpx;
-  height: 160rpx;
-  margin: 10rpx;
 }
 
 .TitleBox {
@@ -65,7 +31,7 @@
   font-size: 40rpx;
   text-align: center;
   border-right: 4rpx solid;
-  line-height:60rpx;
+  line-height: 60rpx;
 }
 
 .Weather {
@@ -74,7 +40,7 @@
   font-size: 40rpx;
   text-align: center;
   border-left: 4rpx solid;
-  line-height:60rpx;
+  line-height: 60rpx;
 }
 
 .WeatherSec {
